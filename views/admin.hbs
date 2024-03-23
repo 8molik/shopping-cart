@@ -1,0 +1,109 @@
+<div class="container mt-4">
+  <h1 class="mt-4">Add Products</h1>
+  <div class="mb-4">
+    <form action="/add_product" method="post">
+      <div class="form-group">
+        <label for="filepath">File path:</label>
+        <input type="text" class="form-control" name="filepath" id="filepath" />
+      </div>
+
+      <div class="form-group">
+        <label for="title">Title:</label>
+        <input type="text" class="form-control" name="title" id="title" />
+      </div>
+
+      <div class="form-group">
+        <label for="description">Description:</label>
+        <input type="text" class="form-control" name="description" id="description" />
+      </div>
+
+      <div class="form-group">
+        <label for="price">Price:</label>
+        <input type="text" class="form-control" name="price" id="price" />
+      </div>
+
+      <button type="submit" class="btn btn-primary">Add</button>
+    </form>
+    <hr>
+    <h1 class="mt-4">Remove Products</h1>
+    <form action="/delete_product" method="post" class="mt-4">
+      <div class="form-group">
+        <label>Select Title to Delete:</label>
+        <select class="form-control" name="deleteTitle" id="deleteTitle">
+          {{#each products}}
+            <option value="{{title}}">{{title}}</option>
+          {{/each}} 
+        </select>
+      </div>
+      <button type="submit" class="btn btn-danger">Delete</button>
+    </form>
+  </div>
+  <hr>
+
+  <h1 class="mt-4">Edit Products</h1>
+  <form action="/edit_product" method="post" class="mt-4">
+    <div class="form-group">
+      <label for="editTitle">Select Title to Edit:</label>
+      <select class="form-control" name="editTitle" id="editTitle">
+        {{#each products}}
+          <option value="{{title}}">{{title}}</option>
+        {{/each}} 
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="new_title">New Title:</label>
+      <input type="text" class="form-control" name="new_title" id="new_title" />
+    </div>
+
+    <div class="form-group">
+      <label for="new_filepath">New File path:</label>
+      <input type="text" class="form-control" name="new_filepath" id="new_filepath" />
+    </div>
+
+    <div class="form-group">
+      <label for="new_description">New Description:</label>
+      <input type="text" class="form-control" name="new_description" id="new_description" />
+    </div>
+
+    <div class="form-group">
+      <label for="new_price">New Price:</label>
+      <input type="text" class="form-control" name="new_price" id="new_price" />
+    </div>
+
+    <button type="submit" class="btn btn-success">Save Changes</button>
+  </form>
+  <hr>
+
+  <h1 class="mt-4">User List</h1>
+  <ul class="list-group">
+    {{#each users}}
+    {{#unless @first}}
+      <li class="list-group-item">
+          <strong>email:</strong> {{email}}<br>
+      </li>
+    {{/unless}}
+    {{/each}}
+  </ul>
+  <hr>
+  
+  <h1 class="mt-4">Order List</h1>
+  <ul class="list-group">
+    {{#each order}}
+      <li class="list-group-item">
+        <strong>Customer Name:</strong> {{name}}<br>
+        <strong>Order ID:</strong> {{_id}}<br>
+        <strong>Products:</strong>
+        <ul>
+          {{#each cart.items}}
+            <li>
+              <strong>Title:</strong> {{this.item.title}}<br>
+              <strong>Quantity:</strong> {{this.quantity}}<br>
+            </li>
+          {{/each}}
+        </ul>
+        <hr>
+      </li>
+    {{/each}}
+  </ul>
+</div>
